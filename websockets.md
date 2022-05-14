@@ -1,19 +1,20 @@
 # WebSockets
 
-**[You can find all the code for this chapter here](https://github.com/quii/learn-go-with-tests/tree/main/websockets)**
+**[Consulta el código de este capítulo aquí](https://github.com/quii/learn-go-with-tests/tree/main/websockets)**
 
-In this chapter we'll learn how to use WebSockets to improve our application.
+En este capítulo aprenderemos a usar WebSockets para mejorar nuestra aplicación.
 
-## Project recap
+## Resumen del proyecto
 
-We have two applications in our poker codebase
+Tenemos dos aplicaciones en el código de poker:
 
-- *Command line app*. Prompts the user to enter the number of players in a game. From then on informs the players of what the "blind bet" value is, which increases over time. At any point a user can enter `"{Playername} wins"` to finish the game and record the victor in a store.
-- *Web app*. Allows users to record winners of games and displays a league table. Shares the same store as the command line app.
+- *aplicación de línea de comandos (CLI)*. Pide al usuario que introduzca el número de jugadores en la partida. Luego informa a los jugadores sobre el valor de la "apuesta ciega", que aumenta con el tiempo. En cualquier momento un jugador puede escribir `{Playername} gana"` para terminar la partida y almacenar la victoria.
+- *aplicación web". Permite a los usuarios registrar los ganadores de las partidas y muestra la clasificación. Comparte el almacenamiento con la aplicación de línea de comandos.
 
-## Next steps
+## Siguientes pasos
 
-The product owner is thrilled with the command line application but would prefer it if we could bring that functionality to the browser. She imagines a web page with a text box that allows the user to enter the number of players and when they submit the form the page displays the blind value and automatically updates it when appropriate. Like the command line application the user can declare the winner and it'll get saved in the database.
+El product owner está encantado con la aplicación CLI pero preferiría que pudiéramos incorporar esa funcionalidad al navegador. Se imagina una página web con un campo de texto que permite al usuario introducir el número de jugadores y mostrarles el valor de la ciega y la vaya aumentando automáticamente cuando corresponda. Igual que en la aplicación CLI, un usuario puede declarar el ganador y será almacenado en la base de datos.
+
 
 On the face of it, it sounds quite simple but as always we must emphasise taking an _iterative_ approach to writing software.
 
