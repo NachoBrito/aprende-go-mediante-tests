@@ -25,8 +25,8 @@
 
 ## Por qué
 
-* Explora el lenguage Go escribiendo tests
-* **Familiarízate con TDD**. Go es un buen lenguage para aprender TDD porque es simple e incorpora de serie las herraminentas necesarias para hacer test.
+* Explora el lenguaje Go escribiendo tests.
+* **Familiarízate con el TDD**. Go es un buen lenguaje para aprender TDD porque es simple e incorpora de serie las herraminentas necesarias para hacer testing.
 * Confía en que podrás empezar a desarrollar sistemas robustos y bien probados con Go
 * [Mira un vídeo, o lee sobre la importancia de hacer testing y TDD](why.md)
 
@@ -106,7 +106,7 @@ Descubrí que aunque un pequeño número de personas leían el capítulo de la s
 
 #### Resolver algunos problemas
 
-Las Katas son divertidas, pero normalmente muy limitadas como para aprender un lenguage. Probablemente no usarás goroutines para resolver una kata.
+Las Katas son divertidas, pero normalmente muy limitadas como para aprender un lenguaje. Probablemente no usarás goroutines para resolver una kata.
 
 Otro problema es cuando tienes diferentes niveles de entusiasmo. Algunas personas aprenden mucho más que otras del lenguaje, y cuando intentan aplicar lo que han aprendido terminan confundiendo a los demás con características con las que aún no se han familiarizado.
 
@@ -116,7 +116,7 @@ Esto termina creando la sensación de que el aprendizaje es _destructurado_ y _a
 
 De lejos la forma más efectiva fue introducir los fundamentos lentamente leyendo [go by example](https://gobyexample.com/), explorándolos con ejemplos y discutiéndolos en grupo. Ésta técnica resultaba más interactiva que "leed el capítulo X para casa".
 
-Con el tiempo el quipo consigue unos fundamentos sólidos de la _gramática_ del lenguage, y podemos comenzar a construir sistemas.
+Con el tiempo el quipo consigue unos fundamentos sólidos de la _gramática_ del lenguaje, y podemos comenzar a construir sistemas.
 
 Para mí, es análogo a practicar escalas cuando estás aprendiendo a tocar la guitarra.
 
