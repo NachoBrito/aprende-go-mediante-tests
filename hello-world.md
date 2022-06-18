@@ -2,7 +2,7 @@
 
 **[Puedes encontrar el código de este capítulo aquí](https://github.com/quii/learn-go-with-tests/tree/main/hello-world)**
 
-Es una tradición que el primer programa en un nuevo lenguaje sea [Hola, Mundo](https://en.m.wikipedia.org/wiki/%22Hello,_World!%22_program).
+Es tradición que el primer programa en un nuevo lenguaje sea [Hola, Mundo](https://en.m.wikipedia.org/wiki/%22Hello,_World!%22_program).
 
 - Crea una carpeta donde quieras
 - Crea un fichero llamado `hello.go` y escribe el siguiente código en él:
@@ -21,16 +21,16 @@ Para ejecutarlo escribe `go run hello.go`.
 
 ## Cómo funciona
 
-Cuando escribes un programa en Go tendrás un paquete `main` con una función `main` en su interior. Los paquetes con la manera de agrupar el código Go que está relacionado.
+Cuando escribes un programa en Go tendrás un paquete `main` con una función `main` en su interior. Los paquetes son la manera de agrupar el código Go que está relacionado.
 
-La palabra reservada `func` se usa para definir una función con un nombre y un cuerpo.
+La palabra reservada `func` se usa para definir una función, con un nombre y un cuerpo.
 
 Con `import "fmt"` estamos importando un paquete que contiene la función `Println` que usamos para imprimir por pantalla.
 
 
 ## Cómo probarlo
 
-¿Cómo probamos esto? Es una buena práctica separar el código de "dominio" de los \(efectos secundarios\) del mundo exterior. La función `fmt.Println` es un efecto secundario \(imprimir a la salida estándar\) y la cadena de texto que enviamos es nuestro dominio.
+¿Cómo probamos esto? Es una buena práctica separar el código de "dominio" \(de los efectos secundarios\) del mundo exterior. La función `fmt.Println` es un efecto secundario \(imprimir a la salida estándar\) y la cadena de texto que enviamos es nuestro dominio.
 
 Así que vamos a separarlos para que sea más fácil hacer el test.
 
@@ -48,7 +48,7 @@ func main() {
 }
 ```
 
-Heos creado una nueva función ("Hello", *Hola*) con `func`, pero esta vez hemos añadido otra palabra reservada, `string`, a la definición. Ésto significa que la función devuelve un `string`.
+Hemos creado una nueva función ("Hello", *Hola*) con `func`, pero esta vez hemos añadido otra palabra reservada, `string`, a la definición. Con ello indicamos que la función devuelve un `string` (una cadena de texto).
 
 Ahora crea un nuevo fichero llamado `hello_test.go` en el que vamos a escribir el test para nuestra función `Hello`:
 
@@ -69,7 +69,7 @@ func TestHello(t *testing.T) {
 
 ## Módulos Go?
 
-El siguiente paso es ejecutar los tests. Escribe `go test` en tu terminal. Si el test pasa, probablemente estás usando una versión antigua de Go. Pero si estás usando Go 1.16 o posterior, el test no debería ejecutarse. En su lugar, verás un error como éste en la terminal:
+El siguiente paso es ejecutar los tests. Escribe `go test` en tu terminal. Si el test pasa, probablemente estás usando una versión antigua de Go. Pero si estás usando Go 1.16 o posterior, el test no debería ejecutarse. En su lugar, deberías ver un error como éste en la terminal:
 
 ```shell
 $ go test
@@ -89,7 +89,7 @@ En futuros capítulos necesitarás ejecutar `go mod init LOQUESEA` en cada nueva
 
 ## De vuelta al testing
 
-Ejecuta `go test` en tu terminal ¡Debería pasar! Sólo por confirmar, intenta romper deliberadamente el test cambiando el valor de la cadena `want`
+Ejecuta `go test` en tu terminal ¡Ahora debería pasar! Sólo por confirmar, intenta romper deliberadamente el test cambiando el valor de la cadena `want`
 
 Observa que no has tenido que elegir entre diferentes frameworks de testing y aprender a instalarlos. Todo lo que necesitas está incluído en el lenguaje y la sintaxis es la misma que el resto de código que escribas.
 
@@ -109,13 +109,13 @@ Hemos visto algunos conceptos nuevos:
 #### `if`
 Las sentencias if en Go funcionan igual que en el resto de los lenguajes.
 
-#### Declarar variables
+#### Declaración de variables
 
-Hemos declarado algunas variables con la sintaxis `nombreVariable := valor`, que nos permite reutilizar los valores en nuesetro test por legibilidad.
+Hemos declarado algunas variables con la sintaxis `nombreVariable := valor`, que nos permite reutilizar los valores en nuestro test por legibilidad.
 
 #### `t.Errorf`
 
-Estamos llamando al _método_ `Errorf` de nuestro `t` para mostrar un menaje y hacer que falle el test. La `f` significa "formato", es decir, que podemos construir una cadena con valores que se sustituirán en las marcas `%q`. Cuando hiciste que fallase el test deberías haber visto claro cómo funciona.
+Estamos llamando al _método_ `Errorf` de nuestro `t` para mostrar un menaje y hacer que falle el test. La `f` significa "formato", es decir, que podemos construir una cadena con valores que se sustituirán en las marcas `%q` ("especificadores de conversión"). Cuando hiciste que fallase el test deberías haber visto claro cómo funciona.
 
 Puedes leer más sobre las cadenas con marcas en [documentación de fmt](https://golang.org/pkg/fmt/#hdr-Printing). Para los tests, `%q` es muy útil porque encierra los valores entre comillas dobles.
 
@@ -123,21 +123,21 @@ Más adelante exploraremos la diferencia entre métodos y funciones.
 
 ### Go doc
 
-Another quality of life feature of Go is the documentation. You can launch the docs locally by running `godoc -http :8000`. If you go to [localhost:8000/pkg](http://localhost:8000/pkg) you will see all the packages installed on your system.
+Otra característica que contribuye a la calidad de vida con Go es la documentación. Podemos lanzarla localmente ejecutando `godoc -http :8000`. Si abres [localhost:8000/pkg](http://localhost:8000/pkg) verás todos los paquetes que tienes instalados en tu sistema.
 
-The vast majority of the standard library has excellent documentation with examples. Navigating to [http://localhost:8000/pkg/testing/](http://localhost:8000/pkg/testing/) would be worthwhile to see what's available to you.
+La gran mayoría de la librería estándar cuenta con una documentación excelente con ejemplos. Vale la pena echarle un vistazo a [http://localhost:8000/pkg/testing/](http://localhost:8000/pkg/testing/) para ver cuáles son las posibilidades.
 
-If you don't have `godoc` command, then maybe you are using the newer version of Go (1.14 or later) which is [no longer including `godoc`](https://golang.org/doc/go1.14#godoc). You can manually install it with `go install golang.org/x/tools/cmd/godoc@latest`.
+Si no tienes el comando `godoc`, probablemente estás usando una versión de Go posterior a la 1.14, que [ya no lo incluye](https://golang.org/doc/go1.14#godoc). Puedes instalarlo manualmente con el comando `go install golang.org/x/tools/cmd/godoc@latest`.
 
-### Hello, YOU
+### Hola, TÚ
 
-Now that we have a test we can iterate on our software safely.
+Ahora que tenemos un test podemos iterar en nuestro proyecto de forma segura.
 
-In the last example we wrote the test _after_ the code had been written just so you could get an example of how to write a test and declare a function. From this point on we will be _writing tests first_.
+En el último ejemplo escribimos el test _después_ del código, únicamente para que pudieras ver un ejemplo de cómo se escribe un test y declarar una función. A partir de ahora _escribiremos los tests primero_.
 
-Our next requirement is to let us specify the recipient of the greeting.
+Nuestro próximo requisito es poder especificar el receptor del saludo.
 
-Let's start by capturing these requirements in a test. This is basic test driven development and allows us to make sure our test is _actually_ testing what we want. When you retrospectively write tests there is the risk that your test may continue to pass even if the code doesn't work as intended.
+Empecemos capturando este requisito con un test. Esto es parte fundamental del desarrollo guiado por pruebas (*TDD*, "test driven development") y nos permite asegurarnos de que nuestro test está _efectivamente_ probando lo que queremos. Cuando escribes los test de forma retrospectiva corres el riesgo de que tu test pase incluso si el código no funciona correctamente.
 
 ```go
 package main
@@ -146,15 +146,15 @@ import "testing"
 
 func TestHello(t *testing.T) {
 	got := Hello("Chris")
-	want := "Hello, Chris"
+	want := "Hola, Chris"
 
 	if got != want {
-		t.Errorf("got %q want %q", got, want)
+		t.Errorf("se obtuvo %q se esperaba %q", got, want)
 	}
 }
 ```
 
-Now run `go test`, you should have a compilation error
+Ahora ejecuta `go test`, deberías ver un error de compilación
 
 ```text
 ./hello_test.go:6:18: too many arguments in call to Hello
@@ -162,186 +162,186 @@ Now run `go test`, you should have a compilation error
     want ()
 ```
 
-When using a statically typed language like Go it is important to _listen to the compiler_. The compiler understands how your code should snap together and work so you don't have to.
+Cuando usamos un lenguaje con tipado estático como Go es importante _escuchar al compilador_. El compilador entiende cómo debería encajar y funcionar tu código para que tú no necesites hacerlo.
 
-In this case the compiler is telling you what you need to do to continue. We have to change our function `Hello` to accept an argument.
+En este caso el compilador nos está diciendo lo que tenemos que hacer para continuar. Tenemos que cambiar nuestra función `Hello` para que acepte un argumento.
 
-Edit the `Hello` function to accept an argument of type string
+Edita la función `Hello` para que acepte un argumento de tipo string:
 
 ```go
 func Hello(name string) string {
-	return "Hello, world"
+	return "Hola, mundo"
 }
 ```
 
-If you try and run your tests again your `hello.go` will fail to compile because you're not passing an argument. Send in "world" to make it compile.
+Si vuelves a ejecutar tus tests, `hello.go` no compilará porque no estás pasándole un argumento. Envía "mundo" para hacer que compile.
 
 ```go
 func main() {
-	fmt.Println(Hello("world"))
+	fmt.Println(Hello("mundo"))
 }
 ```
 
-Now when you run your tests you should see something like
+Ahora cuando ejecutes tus tests deberías ver algo así:
 
 ```text
-hello_test.go:10: got 'Hello, world' want 'Hello, Chris''
+hello_test.go:10: se obtuvo 'Hola, world' se esperaba 'Hello, Chris''
 ```
+Ya tenemos un programa que compila, pero que no cumple los requisitos de acuerdo a los tests.
 
-We finally have a compiling program but it is not meeting our requirements according to the test.
-
-Let's make the test pass by using the name argument and concatenate it with `Hello,`
+Hagamos que el test pase usando el argumentoname y concatenándolo con `Hola,`
 
 ```go
 func Hello(name string) string {
-	return "Hello, " + name
+	return "Hola, " + name
 }
 ```
 
-When you run the tests they should now pass. Normally as part of the TDD cycle we should now _refactor_.
+Ahora los tests deberían pasar. Normalmente como parte del ciclo TDD deberíamos _refactorizar_.
 
-### A note on source control
+### Un apunte sobre control de versiones
 
-At this point, if you are using source control \(which you should!\) I would
-`commit` the code as it is. We have working software backed by a test.
+En este punto, si estás usando control de versiones \(lo cual deberías hacer!\) yo haría `commit` del código como está. Tenemos software que funciona respalado por un test.
 
-I _wouldn't_ push to master though, because I plan to refactor next. It is nice
-to commit at this point in case you somehow get into a mess with refactoring - you can always go back to the working version.
+Sin embargo _no haría push_ a máster/main todavía, puesto que voy a refactorizar a continuación. Es bueno tener un commit en este punto para poder volver a la versión funcional si rompemos algo durante la refactorización.
 
-There's not a lot to refactor here, but we can introduce another language feature, _constants_.
+No hay mucho que refactorizar aquí, pero podemos introducir otra característica del lenuguaje: las _constantes_.
 
-### Constants
+### Constantes
 
-Constants are defined like so
+Las constantes se definen así:
 
 ```go
-const englishHelloPrefix = "Hello, "
+const englishHelloPrefix = "Hola, "
 ```
 
-We can now refactor our code
+Podemos refactorizar nuestro código:
 
 ```go
-const englishHelloPrefix = "Hello, "
+const englishHelloPrefix = "Hola, "
 
 func Hello(name string) string {
 	return englishHelloPrefix + name
 }
 ```
 
-After refactoring, re-run your tests to make sure you haven't broken anything.
+Después de refactorizar, vuelve a ejecutar los tests para asegurarte de que no se rompe nada.
 
-Constants should improve performance of your application as it saves you creating the `"Hello, "` string instance every time `Hello` is called.
+Las constantes deberían mejorar el rendimiento de tu aplicación al ahorrar la creación de la cadena `"Hola, "` cada vez que se llama a `Hello`.
 
-To be clear, the performance boost is incredibly negligible for this example! But it's worth thinking about creating constants to capture the meaning of values and sometimes to aid performance.
+Para ser honestos, la mejora de rendimiento es completamente imperceptible para este ejemplo, pero merece la pena pensar en crear constantes para capturar el significado de los valores y en ocasiones par a mejorar el rendimiento.
 
-## Hello, world... again
 
-The next requirement is when our function is called with an empty string it defaults to printing "Hello, World", rather than "Hello, ".
+## Hola, mundo... de nuevo
 
-Start by writing a new failing test
+El siguiente requisito es que cuando se llame a la función con una cadena vacía, el saludo por defecto sea "Hola, Mundo", en lugar de "Hola, ".
+
+Comienza escribiendo el nuevo test que falle:
 
 ```go
 func TestHello(t *testing.T) {
-	t.Run("saying hello to people", func(t *testing.T) {
+	t.Run("saludar a gente", func(t *testing.T) {
 		got := Hello("Chris")
-		want := "Hello, Chris"
+		want := "Hola, Chris"
 
 		if got != want {
-			t.Errorf("got %q want %q", got, want)
+			t.Errorf("se obtuvo %q se esperaba %q", got, want)
 		}
 	})
-	t.Run("say 'Hello, World' when an empty string is supplied", func(t *testing.T) {
+	t.Run("decir 'Hola, Mundo' cuando se proporcione una cadena vacía", func(t *testing.T) {
 		got := Hello("")
-		want := "Hello, World"
+		want := "Hola, Mundo"
 
 		if got != want {
-			t.Errorf("got %q want %q", got, want)
+			t.Errorf("se obtuvo %q se esperaba %q", got, want)
 		}
 	})
 }
 ```
 
-Here we are introducing another tool in our testing arsenal, subtests. Sometimes it is useful to group tests around a "thing" and then have subtests describing different scenarios.
+Aquí estamos introduciendo otra herramienta de nuestro arsenal para testing: los subtests. A veces es útil agrupar los tests alrededor de "algo", y tener subtests que describan diferentes escenarios.
 
-A benefit of this approach is you can set up shared code that can be used in the other tests.
+Una ventaja de este enfoque es que puedes compartir código entre tests.
 
-There is repeated code when we check if the message is what we expect.
+Hay un código que se repite cuando verificamos si el mensaje es el esperado.
 
-Refactoring is not _just_ for the production code!
+¡Lo de refactorizar no es _sólo_ para el código de producción!
 
-It is important that your tests _are clear specifications_ of what the code needs to do.
+Es importante que tus tests _sean especificaciones claras_ de lo que debe hacer el código.
 
-We can and should refactor our tests.
+Podemos y debemos refactorizar nuestros tests.
+
 
 ```go
 func TestHello(t *testing.T) {
 	assertCorrectMessage := func(t testing.TB, got, want string) {
 		t.Helper()
 		if got != want {
-			t.Errorf("got %q want %q", got, want)
+			t.Errorf("se obtuvo %q se esperaba %q", got, want)
 		}
 	}
 
-	t.Run("saying hello to people", func(t *testing.T) {
+	t.Run("saludar a gente", func(t *testing.T) {
 		got := Hello("Chris")
-		want := "Hello, Chris"
+		want := "Hola, Chris"
 		assertCorrectMessage(t, got, want)
 	})
-	t.Run("empty string defaults to 'World'", func(t *testing.T) {
+	t.Run("Usar 'Mundo' si la cadena viene vacía", func(t *testing.T) {
 		got := Hello("")
-		want := "Hello, World"
+		want := "Hola, Mundo"
 		assertCorrectMessage(t, got, want)
 	})
 }
 ```
 
-What have we done here?
+¿Qué hemos hecho aquí?
 
-We've refactored our assertion into a function. This reduces duplication and improves readability of our tests. In Go you can declare functions inside other functions and assign them to variables. You can then call them, just like normal functions. We need to pass in `t *testing.T` so that we can tell the test code to fail when we need to.
+Hemos refactorizado nuestra aserción a una función. Ésto reduce la duplicación y mejora la legibilidad de nuestros tests. En Go puedes declarar funciones dentro de otras funciones, asignarlas avariables e invocarlas exactamente igual que las demás fuynciones. Necesitamos pasar `t *testing.T` para poder decirle al código de test que falle cuando sea necesario.
 
-For helper functions, it's a good idea to accept a `testing.TB` which is an interface that `*testing.T` and `*testing.B` both satisfy, so you can call helper functions from a test, or a benchmark.
+Para funciones auxiliares es una buena idea aceptar un `testing.TB`, que es una interfaz que tanto `*testing.T` como `*testing.B` satisfacen, para tener acceso a funciones tanto de testing como de rendimiento.
 
-`t.Helper()` is needed to tell the test suite that this method is a helper. By doing this when it fails the line number reported will be in our _function call_ rather than inside our test helper. This will help other developers track down problems easier. If you still don't understand, comment it out, make a test fail and observe the test output. Comments in Go are a great way to add additional information to your code, or in this case, a quick way to tell the compiler to ignore a line. You can comment out the `t.Helper()` code by adding two forward slashes `//` at the beginning of the line. You should see that line turn grey or change to another color than the rest of your code to indicate it's now commented out.
+La llamada a `t.Helper()` es necesaria para decir al conjunto de tests que este método es una función auxiliar ("*helper*"). Al hacerlo cuando falle el número de línea que veremos será el de _la llamada a nuestra función_ en lugar de la línea dentro de la función auxiliar. Así otros programadores podrán depurar problemas más fácilmente. Si no te queda claro, coméntala, haz que falle el test y observa la salida. Los comentarios en go son una forma genial del añadir información adicional a tu código, o en este caso, una forma rápida de decirle al compilador que ignore una línea. Puedes comentar la lína `t.Helper()` añadiendo dos barras `//` al principio de la línea. Deberías ver que se vuelven grises, o de otro color diferente al resto del código, para indicar que está comentada.
 
-Now that we have a well-written failing test, let's fix the code, using an `if`.
+Ahora que tenemos un test bien escrito y fallando, corrijamos el código usando un `if`.
+
 
 ```go
-const englishHelloPrefix = "Hello, "
+const englishHelloPrefix = "Hola, "
 
 func Hello(name string) string {
 	if name == "" {
-		name = "World"
+		name = "Mundo"
 	}
 	return englishHelloPrefix + name
 }
 ```
 
-If we run our tests we should see it satisfies the new requirement and we haven't accidentally broken the other functionality.
+Si ejecutamos nuestros tests deberíamos ver que satisface el nuevo requisito y que no hemos roto accidentalmente el resto de la funcionalidad.
 
-### Back to source control
 
-Now we are happy with the code I would amend the previous commit so we only
-check in the lovely version of our code with its test.
+### Vuelta al control de versiones
 
-### Discipline
+Ahora que estamos satisfechos con el código yo rectificaría (*ammend*)  el commit anterior de forma que sólo subamos la versión bonita de nuestro código con su test.
 
-Let's go over the cycle again
+### Disciplina
 
-* Write a test
-* Make the compiler pass
-* Run the test, see that it fails and check the error message is meaningful
-* Write enough code to make the test pass
-* Refactor
+Repasemos el ciclo de nuevo:
 
-On the face of it this may seem tedious but sticking to the feedback loop is important.
+* Escribe un test
+* Haz que compile
+* Ejecuta el test para comprobar que falla con un mensaje de error útil
+* Escribe el código necesario para que el test pase
+* Refactoriza
 
-Not only does it ensure that you have _relevant tests_, it helps ensure _you design good software_ by refactoring with the safety of tests.
+Puede parecer tedioso, pero ceñirse al bucle de feedback es importante.
 
-Seeing the test fail is an important check because it also lets you see what the error message looks like. As a developer it can be very hard to work with a codebase when failing tests do not give a clear idea as to what the problem is.
+No sólo te aseguras de tener _tests relevantes_, sino que ayuda a _diseñar buen software_ al refactorizar con la seguridad de los tests.
 
-By ensuring your tests are _fast_ and setting up your tools so that running tests is simple you can get in to a state of flow when writing your code.
+Ver el test fallar es una comprobación importante porque también te permite ver qué pinta tiene el mensaje de error. Como programador puede ser muy difícil trabajar con un código que no te da una idea clara del problema cuando falla un test.
 
-By not writing tests you are committing to manually checking your code by running your software which breaks your state of flow and you won't be saving yourself any time, especially in the long run.
+Al procurar que los tests sean _rápidos_ y configurar tus herramientas de forma que ejecutar los tests sea simple puedes alcanzar el estado de flujo cuando escribas código.
+
+Si no escribes tests te comprometes a comprobar manualmente el código ejecutando la aplicación, lo que rompe tu estado de flujo y no te ahorrará ningún tiempo, especialmente a largo plazo.
 
 ## Keep going! More requirements
 
