@@ -189,7 +189,7 @@ hello_test.go:10: se obtuvo 'Hola, world' se esperaba 'Hello, Chris''
 ```
 Ya tenemos un programa que compila, pero que no cumple los requisitos de acuerdo a los tests.
 
-Hagamos que el test pase usando el argumentoname y concatenándolo con `Hola,`
+Hagamos que el test pase usando el argumento name y concatenándolo con `Hola,`
 
 ```go
 func Hello(name string) string {
@@ -201,9 +201,9 @@ Ahora los tests deberían pasar. Normalmente como parte del ciclo TDD deberíamo
 
 ### Un apunte sobre control de versiones
 
-En este punto, si estás usando control de versiones \(lo cual deberías hacer!\) yo haría `commit` del código como está. Tenemos software que funciona respalado por un test.
+En este punto, si estás usando control de versiones \(¡lo cual deberías hacer!\) yo haría `commit` del código como está. Tenemos software que funciona respaldado por un test.
 
-Sin embargo _no haría push_ a máster/main todavía, puesto que voy a refactorizar a continuación. Es bueno tener un commit en este punto para poder volver a la versión funcional si rompemos algo durante la refactorización.
+Sin embargo _no haría push_ a master/main todavía, puesto que voy a refactorizar a continuación. Es bueno tener un commit en este punto para poder volver a la versión funcional si rompemos algo durante la refactorización.
 
 No hay mucho que refactorizar aquí, pero podemos introducir otra característica del lenuguaje: las _constantes_.
 
@@ -212,16 +212,16 @@ No hay mucho que refactorizar aquí, pero podemos introducir otra característic
 Las constantes se definen así:
 
 ```go
-const englishHelloPrefix = "Hola, "
+const spanishHelloPrefix = "Hola, "
 ```
 
 Podemos refactorizar nuestro código:
 
 ```go
-const englishHelloPrefix = "Hola, "
+const spanishHelloPrefix = "Hola, "
 
 func Hello(name string) string {
-	return englishHelloPrefix + name
+	return spanishHelloPrefix + name
 }
 ```
 
@@ -229,7 +229,7 @@ Después de refactorizar, vuelve a ejecutar los tests para asegurarte de que no 
 
 Las constantes deberían mejorar el rendimiento de tu aplicación al ahorrar la creación de la cadena `"Hola, "` cada vez que se llama a `Hello`.
 
-Para ser honestos, la mejora de rendimiento es completamente imperceptible para este ejemplo, pero merece la pena pensar en crear constantes para capturar el significado de los valores y en ocasiones par a mejorar el rendimiento.
+Para ser honestos, la mejora de rendimiento es completamente imperceptible para este ejemplo, pero merece la pena pensar en crear constantes para capturar el significado de los valores y en ocasiones para mejorar el rendimiento.
 
 
 ## Hola, mundo... de nuevo
@@ -296,23 +296,23 @@ func TestHello(t *testing.T) {
 
 ¿Qué hemos hecho aquí?
 
-Hemos refactorizado nuestra aserción a una función. Ésto reduce la duplicación y mejora la legibilidad de nuestros tests. En Go puedes declarar funciones dentro de otras funciones, asignarlas avariables e invocarlas exactamente igual que las demás fuynciones. Necesitamos pasar `t *testing.T` para poder decirle al código de test que falle cuando sea necesario.
+Hemos refactorizado nuestra aserción a una función. Esto reduce la duplicación y mejora la legibilidad de nuestros tests. En Go puedes declarar funciones dentro de otras funciones, asignarlas avariables e invocarlas exactamente igual que las demás fuynciones. Necesitamos pasar `t *testing.T` para poder decirle al código de test que falle cuando sea necesario.
 
 Para funciones auxiliares es una buena idea aceptar un `testing.TB`, que es una interfaz que tanto `*testing.T` como `*testing.B` satisfacen, para tener acceso a funciones tanto de testing como de rendimiento.
 
-La llamada a `t.Helper()` es necesaria para decir al conjunto de tests que este método es una función auxiliar ("*helper*"). Al hacerlo cuando falle el número de línea que veremos será el de _la llamada a nuestra función_ en lugar de la línea dentro de la función auxiliar. Así otros programadores podrán depurar problemas más fácilmente. Si no te queda claro, coméntala, haz que falle el test y observa la salida. Los comentarios en go son una forma genial del añadir información adicional a tu código, o en este caso, una forma rápida de decirle al compilador que ignore una línea. Puedes comentar la lína `t.Helper()` añadiendo dos barras `//` al principio de la línea. Deberías ver que se vuelven grises, o de otro color diferente al resto del código, para indicar que está comentada.
+La llamada a `t.Helper()` es necesaria para decir al conjunto de tests que este método es una función auxiliar ("*helper*"). Al hacerlo, cuando falle el número de línea que veremos será el de _la llamada a nuestra función_ en lugar de la línea dentro de la función auxiliar. Así otros programadores podrán depurar problemas más fácilmente. Si no te queda claro, coméntala, haz que falle el test y observa la salida. Los comentarios en go son una forma genial del añadir información adicional a tu código, o en este caso, una forma rápida de decirle al compilador que ignore una línea. Puedes comentar la lína `t.Helper()` añadiendo dos barras `//` al principio de la línea. Deberías ver que se vuelven grises, o de otro color diferente al resto del código, para indicar que está comentada.
 
 Ahora que tenemos un test bien escrito y fallando, corrijamos el código usando un `if`.
 
 
 ```go
-const englishHelloPrefix = "Hola, "
+const spanishhHelloPrefix = "Hola, "
 
 func Hello(name string) string {
 	if name == "" {
 		name = "Mundo"
 	}
-	return englishHelloPrefix + name
+	return spanishhHelloPrefix + name
 }
 ```
 
@@ -333,9 +333,7 @@ Repasemos el ciclo de nuevo:
 * Escribe el código necesario para que el test pase
 * Refactoriza
 
-Puede parecer tedioso, pero ceñirse al bucle de feedback es importante.
-
-No sólo te aseguras de tener _tests relevantes_, sino que ayuda a _diseñar buen software_ al refactorizar con la seguridad de los tests.
+Puede parecer tedioso, pero ceñirse al bucle de feedback es importante. No sólo te aseguras de tener _tests relevantes_, sino que ayuda a _diseñar buen software_ al refactorizar con la seguridad de los tests.
 
 Ver el test fallar es una comprobación importante porque también te permite ver qué pinta tiene el mensaje de error. Como programador puede ser muy difícil trabajar con un código que no te da una idea clara del problema cuando falla un test.
 
@@ -343,23 +341,23 @@ Al procurar que los tests sean _rápidos_ y configurar tus herramientas de forma
 
 Si no escribes tests te comprometes a comprobar manualmente el código ejecutando la aplicación, lo que rompe tu estado de flujo y no te ahorrará ningún tiempo, especialmente a largo plazo.
 
-## Keep going! More requirements
+## ¡Sigamos! Más requisitos
 
-Goodness me, we have more requirements. We now need to support a second parameter, specifying the language of the greeting. If a language is passed in that we do not recognise, just default to English.
+Madre mía, tenemos más requisitos. Ahora tenemos que soportar un segundo parámetro especificando el idioma del saludo. Si se pasa un idioma no soportado, usaremos español por defecto.
 
-We should be confident that we can use TDD to flesh out this functionality easily!
+¡Pues claro que podemos usar TDD para desarrollar esta funcionalidad fácilmente!
 
-Write a test for a user passing in Spanish. Add it to the existing suite.
+Escribe un test en el que el usuario nos pasa "Inglés", y añádelo a la suit actual.
 
 ```go
-	t.Run("in Spanish", func(t *testing.T) {
-		got := Hello("Elodie", "Spanish")
-		want := "Hola, Elodie"
+	t.Run("en Inglés", func(t *testing.T) {
+		got := Hello("Elodie", "Inglés")
+		want := "Hello, Elodie"
 		assertCorrectMessage(t, got, want)
 	})
 ```
 
-Remember not to cheat! _Test first_. When you try and run the test, the compiler _should_ complain because you are calling `Hello` with two arguments rather than one.
+¡Recuerda no hacer trampas! _El test primero_. Cuando ejecutes el test, el compilador _debería_ protestar porque estás llamando a `Hello` con dos argumentos en vez de uno.
 
 ```text
 ./hello_test.go:27:19: too many arguments in call to Hello
@@ -367,18 +365,18 @@ Remember not to cheat! _Test first_. When you try and run the test, the compiler
     want (string)
 ```
 
-Fix the compilation problems by adding another string argument to `Hello`
+Arregla los problemas de compilación añdiendo un segundo argumento de tipo string a `Hello`
 
 ```go
 func Hello(name string, language string) string {
 	if name == "" {
-		name = "World"
+		name = "Mundo"
 	}
-	return englishHelloPrefix + name
+	return spanishhHelloPrefix + name
 }
 ```
 
-When you try and run the test again it will complain about not passing through enough arguments to `Hello` in your other tests and in `hello.go`
+Cuando vuelvas a lanzar el test se quejará por no pasar suficientes argumentos a `Hello` en el resto de tests in `hello.go`
 
 ```text
 ./hello.go:15:19: not enough arguments in call to Hello
@@ -386,105 +384,105 @@ When you try and run the test again it will complain about not passing through e
     want (string, string)
 ```
 
-Fix them by passing through empty strings. Now all your tests should compile _and_ pass, apart from our new scenario
+Corríjelos pasando cadenas vacías. Ahora todos los tests deberían compilar _y_ pasar, excepto el nuevo escenario.
 
-```text
-hello_test.go:29: got 'Hello, Elodie' want 'Hola, Elodie'
+```textH
+hello_test.go:29: got 'Hola, Elodie' want 'Hello, Elodie'
 ```
 
-We can use `if` here to check the language is equal to "Spanish" and if so change the message
+Podemos usar un `if` aquí para comprobar si el idoma es "Inglés" y cambiar el mensaje
 
 ```go
 func Hello(name string, language string) string {
 	if name == "" {
-		name = "World"
+		name = "Mundo"
 	}
 
-	if language == "Spanish" {
-		return "Hola, " + name
+	if language == "Inglés" {
+		return "Hello, " + name
 	}
-	return englishHelloPrefix + name
+	return spanishhHelloPrefix + name
 }
 ```
 
-The tests should now pass.
+Ahora el test debería pasar.
 
-Now it is time to _refactor_. You should see some problems in the code, "magic" strings, some of which are repeated. Try and refactor it yourself, with every change make sure you re-run the tests to make sure your refactoring isn't breaking anything.
+Y llega el momento de _refactorizar_. Deberías ver algunos problemas en el código: cadenas "mágicas", algunas incluso repetidas. Intenta refactorizarlo sin ayuda, asegurándote de que vuelves a ejecutar los tests para comprobar que no rompes nada.
 
 ```go
-const spanish = "Spanish"
+const english = "Inglés"
 const englishHelloPrefix = "Hello, "
 const spanishHelloPrefix = "Hola, "
 
 func Hello(name string, language string) string {
 	if name == "" {
-		name = "World"
+		name = "Mundo"
 	}
 
-	if language == spanish {
-		return spanishHelloPrefix + name
+	if language == english {		
+		return englishHelloPrefix + name
 	}
-	return englishHelloPrefix + name
+	return spanishHelloPrefix + name
 }
 ```
 
-### French
+### Francés
 
-* Write a test asserting that if you pass in `"French"` you get `"Bonjour, "`
-* See it fail, check the error message is easy to read
-* Do the smallest reasonable change in the code
+* Escribe un test que espere que cuando se pase `"Francés"` genere `"Bonjour, "`.
+* Comprueba que falla, con un mensaje de error que sea útil.
+* Haz la modificación más pequeña posible para que el test pase
 
-You may have written something that looks roughly like this
+Probablemente hayas escrito algo parecido a esto:
 
 ```go
 func Hello(name string, language string) string {
 	if name == "" {
-		name = "World"
+		name = "Mundo"
 	}
 
-	if language == spanish {
-		return spanishHelloPrefix + name
+	if language == english {
+		return englishHelloPrefix + name
 	}
 	if language == french {
 		return frenchHelloPrefix + name
 	}
-	return englishHelloPrefix + name
+	return spanishHelloPrefix + name	
 }
 ```
 
 ## `switch`
 
-When you have lots of `if` statements checking a particular value it is common to use a `switch` statement instead. We can use `switch` to refactor the code to make it easier to read and more extensible if we wish to add more language support later
+Cuando tenemos muchas sentencias `if` para comprobar el valor de una variable, es habitual cambiarlos por una sentencia `switch`. Podemos usar `switch` para refactorizar nuestro código y hacerlo más sencillo de leer y más extensible en caso de necesitar más idiomas en el futuro.
 
 ```go
 func Hello(name string, language string) string {
 	if name == "" {
-		name = "World"
+		name = "Mundo"
 	}
 
-	prefix := englishHelloPrefix
+	prefix := spanishHelloPrefix
 
 	switch language {
 	case french:
 		prefix = frenchHelloPrefix
-	case spanish:
-		prefix = spanishHelloPrefix
+	case english:
+		prefix = englishHelloPrefix
 	}
 
 	return prefix + name
 }
 ```
 
-Write a test to now include a greeting in the language of your choice and you should see how simple it is to extend our _amazing_ function.
+Escribe un test para incluir un saludo en el idioma que prefieras, y deberías poder comprobar lo fácil que es extender nuestra _increíble_ función.
 
-### one...last...refactor?
+### una...última...refactorización?
 
-You could argue that maybe our function is getting a little big. The simplest refactor for this would be to extract out some functionality into another function.
+Podríamos argumentar que nuestra función está creciendo demasiado. La refactorización más sencilla para corregirlo sería extraer parte de la funcionalidad a otra función.
 
 ```go
 func Hello(name string, language string) string {
 	if name == "" {
-		name = "World"
+		name = "Mundo"
 	}
 
 	return greetingPrefix(language) + name
@@ -494,44 +492,45 @@ func greetingPrefix(language string) (prefix string) {
 	switch language {
 	case french:
 		prefix = frenchHelloPrefix
-	case spanish:
-		prefix = spanishHelloPrefix
-	default:
+	case english:
 		prefix = englishHelloPrefix
+	default:
+		prefix = spanishHelloPrefix
+		
 	}
 	return
 }
 ```
 
-A few new concepts:
+Algunos conceptos nuevos:
 
-* In our function signature we have made a _named return value_ `(prefix string)`.
-* This will create a variable called `prefix` in your function.
-  * It will be assigned the "zero" value. This depends on the type, for example `int`s are 0 and for `string`s it is `""`.
-    * You can return whatever it's set to by just calling `return` rather than `return prefix`.
-  * This will display in the Go Doc for your function so it can make the intent of your code clearer.
-* `default` in the switch case will be branched to if none of the other `case` statements match.
-* The function name starts with a lowercase letter. In Go public functions start with a capital letter and private ones start with a lowercase. We don't want the internals of our algorithm to be exposed to the world, so we made this function private.
+* En la declaración de nuestra función hemo incluido un _valor de retorno con nombre_ `(prefix string)`.
+* Esto creará una variable con el nombre `prefix` en nuestra función.
+  * Se le asignará el valor "zero", que depende del tipo. Por ejemplo, para `int` es 0, y para `string` es `""`.
+    * Puedes devolver el valor que tenga esta variable escribiendo simplemente `return`, en vez de `return prefix`. 
+  * Esto quedará reflejado en la documentación Go Doc de tu función, para expresar más claramente la intención de tu código.
+* En el switch, el caso `default` será el elegido sin ninguno de los otros `case` coinciden con el valor.
+* El nombre de la función empieza por letra minúscula. En Go las funciones públicas empiezan con mayúscula y las privadas por minúscula. No queremos exponer las interioridades de nuestro argumento al mundo, así que hacemos esta función privada.
 
-## Wrapping up
+## Resumiendo
 
-Who knew you could get so much out of `Hello, world`?
+¿Quién iba a decir que sacaríamos tanto de un `Hola, Mundo`?
 
-By now you should have some understanding of:
+A estas alturas deberías haberte familiarizado con :
 
-### Some of Go's syntax around
+### Parte de la sintaxis de Go
 
-* Writing tests
-* Declaring functions, with arguments and return types
-* `if`, `const` and `switch`
-* Declaring variables and constants
+* Escribir tests
+* Declaración de funciones, con argumentos y valores de retorno
+* `if`, `const` y `switch`
+* Declaración de variables y constantes
 
-### The TDD process and _why_ the steps are important
+### El proceso TDD y _por qué_ es importante
 
-* _Write a failing test and see it fail_ so we know we have written a _relevant_ test for our requirements and seen that it produces an _easy to understand description of the failure_
-* Writing the smallest amount of code to make it pass so we know we have working software
-* _Then_ refactor, backed with the safety of our tests to ensure we have well-crafted code that is easy to work with
+* _Escribe un test que falle y obsérvalo fallar_, para comprobar que el test es _relevante_ para nuestros requisitos y genera una _descripción del error fácil de comprender_.
+* Escribe la mínima cantidad de código necesaria para que el test pase, de forma que sepamos que ya tenemos software que funciona.
+* _Entonces_ refactoriza, con el respaldo de los tests para asegurar que tenemos código bien escrito con el que sea fácil trabajar.
 
-In our case we've gone from `Hello()` to `Hello("name")`, to `Hello("name", "French")` in small, easy to understand steps.
+En nuestro caso hemos ido de `Hello()` a `Hello("name")`, y finalmente a `Hello("name", "French")` con pasos pequeños y fáciles de comprender.
 
-This is of course trivial compared to "real world" software but the principles still stand. TDD is a skill that needs practice to develop, but by breaking problems down into smaller components that you can test, you will have a much easier time writing software.
+Por supuesto, este ejercicio es trivial comparado con software "del mundo real", pero los principios son los mismos. Hacer TDD es una habilidad que necesita práctica, pero al dividir los problemas en otros más pequeños que puedas probar te resultará mucho más sencillo escribir software.
