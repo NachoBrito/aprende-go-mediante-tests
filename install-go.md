@@ -52,10 +52,7 @@ brew install golangci-lint
 
 Este libro pone mucho énfasis en la importancia de la refactorización.
 
-Tus herramientas pueden ayudarte a hacer grandes refactorizaciones con confianza.
-
 Deberías estar suficientemente familiarizado con tu editor como para poder hacer las siguientes tareas con una sencilla combinación de teclas:
-
 
 - **Extraer variable**. Poder tomar valores mágicos y darles un nombre te permite simplificar rápidamente tu código.
 - **Extraer método/función**. Es vital poder seleccionar una sección del código y extraerla a un método o función.
@@ -73,4 +70,4 @@ Dominar tus herramientas te ayudará a concentrarte en el código y reducir los 
 
 ## Resumiendo
 
-En este punto deberías tener Go instalado, un editor disponible y las herramientas básicas preparadas. Go tiene un ecosistema muy grande de productos de terceros. Aquí hemos visto unos cuantos, para ver una lista completa visita https://awesome-go.com.
+En este punto deberías tener Go instalado, un editor disponible y las herramientas básicas preparadas. Go tiene un ecosistema muy grande de productos de terceros. Aquí hemos visto unos cuantos, para ver una lista completa visita [https://awesome-go.com](https://awesome-go.com).
