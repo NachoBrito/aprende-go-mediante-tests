@@ -1,14 +1,14 @@
 # Iteration
 
-**[You can find all the code for this chapter here](https://github.com/quii/learn-go-with-tests/tree/main/for)**
+**[Puedes encontrar todo el código de este capítulo aquí](https://github.com/quii/learn-go-with-tests/tree/main/for)**
 
-To do stuff repeatedly in Go, you'll need `for`. In Go there are no `while`, `do`, `until` keywords, you can only use `for`. Which is a good thing!
+Para repetir acciones en Go necesitas el `for`. En Go no existen `while`, `do`, ni `until`, sólo puedes usar `for` ¡lo que es una buena noticia!
 
-Let's write a test for a function that repeats a character 5 times.
+Escribamos un test para una función que repite un carácter 5 veces.
 
-There's nothing new so far, so try and write it yourself for practice.
+No hay nada nuevo de momento, así que intenta escribir el test por tu cuenta para practicar.
 
-## Write the test first
+## Escribe el test primero
 
 ```go
 package iteration
@@ -20,20 +20,20 @@ func TestRepeat(t *testing.T) {
 	expected := "aaaaa"
 
 	if repeated != expected {
-		t.Errorf("expected %q but got %q", expected, repeated)
+		t.Errorf("se esperaba %q pero se obtuvo %q", expected, repeated)
 	}
 }
 ```
 
-## Try and run the test
+## Intenta ejecutar el test
 
 `./repeat_test.go:6:14: undefined: Repeat`
 
-## Write the minimal amount of code for the test to run and check the failing test output
+## Escribe la mínima cantidad de código para que el test se ejecute y verifica el mensaje de error
 
-_Keep the discipline!_ You don't need to know anything new right now to make the test fail properly.
+_¡Mantén la disciplina!_ No necesitas saber nada nuevo para conseguir que el test falle.
 
-All you need to do right now is enough to make it compile so you can check your test is written well.
+Sólo necesitas hacer lo mínimo para que el test compile y poder comprobar que está bien escrito.
 
 ```go
 package iteration
@@ -43,13 +43,13 @@ func Repeat(character string) string {
 }
 ```
 
-Isn't it nice to know you already know enough Go to write tests for some basic problems? This means you can now play with the production code as much as you like and know it's behaving as you'd hope.
+¿No es genial saber que ya sabes suficiente Go para escribir tests para algunos problemas básicos? Esto significa que ya puedes jugar con el código de producción todo lo que quieras y saber que se está comportando como se espera.
 
-`repeat_test.go:10: expected 'aaaaa' but got ''`
+`repeat_test.go:10: se esperaba 'aaaaa' pero se obtuvo ''`
 
-## Write enough code to make it pass
+## Escribe código suficiente para hacer que el test pase
 
-The `for` syntax is very unremarkable and follows most C-like languages.
+La sintaxis de `for` es muy corriente y se parece a la mayoría de lenguajes tipo C.
 
 ```go
 func Repeat(character string) string {
@@ -61,21 +61,21 @@ func Repeat(character string) string {
 }
 ```
 
-Unlike other languages like C, Java, or JavaScript there are no parentheses surrounding the three components of the for statement and the braces `{ }` are always required. You might wonder what is happening in the row
+A diferencia de otros lenguajes como C, Java o Javascript, no hay paréntesis alrededor de los tres componentes de la sentencia for, y las llaves `{ }` siempre son requeridas. Quizá te preguntes qué hace la línea
 
 ```go
 	var repeated string
 ```
 
-as we've been using `:=` so far to declare and initializing variables. However, `:=` is simply [short hand for both steps](https://gobyexample.com/variables). Here we are declaring a `string` variable only. Hence, the explicit version. We can also use `var` to declare functions, as we'll see later on.
+ya que hasta ahora hemos estado usando `:=` para declarar e inicializar variables. Sin embargo, `:=` es simplemente [un atajo para hacer los dos pasos juntos](https://gobyexample.com/variables). Aquí únicamente estamos declarando una variable de tipo `string`, por eso usamos la forma explícita. También podemos usar `var` para declarar funciones, como veremos más adelante.
 
-Run the test and it should pass.
+Ejecuta el test, ahora debería pasar.
 
-Additional variants of the for loop are described [here](https://gobyexample.com/for).
+Puedes consultar otras variantes del bucle `for` [aquí](https://gobyexample.com/for)
 
-## Refactor
+## Refactoriza
 
-Now it's time to refactor and introduce another construct `+=` assignment operator.
+Es el momento de refactorizar e introducir el operador de asignación `+=`.
 
 ```go
 const repeatCount = 5
@@ -89,11 +89,11 @@ func Repeat(character string) string {
 }
 ```
 
-`+=` called _"the Add AND assignment operator"_, adds the right operand to the left operand and assigns the result to left operand. It works with other types like integers.
+`+=` es el _"el operador de incremento Y asignación"_, añade el operando de la derecha al de la izquierda, y asigna el resultado al operando de la izquierda. También funciona con otros tipos como los enteros.
 
-### Benchmarking
+### Pruebas de rendiemiento
 
-Writing [benchmarks](https://golang.org/pkg/testing/#hdr-Benchmarks) in Go is another first-class feature of the language and it is very similar to writing tests.
+La creación de [pruebas de rendimiento](https://golang.org/pkg/testing/#hdr-Benchmarks) en Go es también una funcionalidad de primer nivel en el lenguaje, y es muy parecido a escribir tests.
 
 ```go
 func BenchmarkRepeat(b *testing.B) {
@@ -103,15 +103,15 @@ func BenchmarkRepeat(b *testing.B) {
 }
 ```
 
-You'll see the code is very similar to a test.
+Como ves el código se parece mucho a un test.
 
-The `testing.B` gives you access to the cryptically named `b.N`.
+El parámetro de tipo `testing.B` te da acceso a algo llamado misteriosamente `b.N`. 
 
-When the benchmark code is executed, it runs `b.N` times and measures how long it takes.
+En una una prueba de rendimiento, el código se ejecuta `b.N` veces y se mide cuánto tiempo tarda.
 
-The amount of times the code is run shouldn't matter to you, the framework will determine what is a "good" value for that to let you have some decent results.
+El número exacto de veces que se ejecute el código no te debería importar, el framework determina el mejor valor para ofrecerte resultados decentes.
 
-To run the benchmarks do `go test -bench=.` (or if you're in Windows Powershell `go test -bench="."`)
+Para ejecutar las pruebas de rendimiento escribe `go test-bench=.` (o si estás en Windows Powershell `go test -bench="."`)
 
 ```text
 goos: darwin
@@ -121,18 +121,18 @@ pkg: github.com/quii/learn-go-with-tests/for/v4
 PASS
 ```
 
-What `136 ns/op` means is our function takes on average 136 nanoseconds to run \(on my computer\). Which is pretty ok! To test this it ran it 10000000 times.
+`136 ns/op` significa que nuestra función tarda en promedio 136 nanosegundos en ejecutarse \(en mi computadora\) ¡Lo cual está bastante bien! Para este test la función se ejecutó 10000000 veces.
 
-_NOTE_ by default Benchmarks are run sequentially.
+_NOTA_ por defecto las pruebas de rendimiento se ejecutan secuencialmente.
 
-## Practice exercises
+## Ejercicios para practicar
 
-* Change the test so a caller can specify how many times the character is repeated and then fix the code
-* Write `ExampleRepeat` to document your function
-* Have a look through the [strings](https://golang.org/pkg/strings) package. Find functions you think could be useful and experiment with them by writing tests like we have here. Investing time learning the standard library will really pay off over time.
+* Cambia el test para que se pueda especificar en la llamada el carácter que se debe repetir, y luego corrige el código.
+* Escribe `ExampleRepeat` para documentar tu función.
+* Écha un vistazo al paquete [strings](https://golang.org/pkg/strings). Localiza las funciones que te parezcan útiles y experimenta con ellas escribiendo tests como hemos hecho aquí. Con el tiempo te alegrarás de haber invertido tiempo en aprender sobre la librería estándar.
 
-## Wrapping up
+## Resumiendo
 
-* More TDD practice
-* Learned `for`
-* Learned how to write benchmarks
+* Hemos practicado más TDD.
+* Hemos aprendido a usar el `for`.
+* Hemos aprendido a escribir pruebas de rendimiento.
