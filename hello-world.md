@@ -298,7 +298,7 @@ func assertCorrectMessage(t testing.TB, got, want string) {
 
 ¿Qué hemos hecho aquí?
 
-Hemos refactorizado nuestra aserción a una función. Esto reduce la duplicación y mejora la legibilidad de nuestros tests. En Go puedes declarar funciones dentro de otras funciones, asignarlas avariables e invocarlas exactamente igual que las demás funnciones. Necesitamos pasar `t *testing.T` para poder decirle al código de test que falle cuando sea necesario.
+Hemos refactorizado nuestra aserción a una función. Esto reduce la duplicación y mejora la legibilidad de nuestros tests. Necesitamos pasar `t *testing.T` para poder decirle al código de test que falle cuando sea necesario.
 
 Para funciones auxiliares es una buena idea aceptar un `testing.TB`, que es una interfaz que tanto `*testing.T` como `*testing.B` implementan, para tener acceso a funciones tanto de testing como de rendimiento.
 
