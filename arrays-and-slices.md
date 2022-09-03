@@ -1,19 +1,18 @@
-# Arrays and slices
+# Arrays y slices
 
-**[You can find all the code for this chapter here](https://github.com/quii/learn-go-with-tests/tree/main/arrays)**
+**[Puedes encontrar todo el código de este capítulo aquí](https://github.com/quii/learn-go-with-tests/tree/main/arrays)**
 
-Arrays allow you to store multiple elements of the same type in a variable in
-a particular order.
+Los arrays te permiten almacenar múltiples elementos del mismo tipo en una variable manteniendo un orden particular.
 
-When you have an array, it is very common to have to iterate over them. So let's
-use [our new-found knowledge of `for`](iteration.md) to make a `Sum` function. `Sum` will
-take an array of numbers and return the total.
+Cuando tienes un array es muy común iterar sobre sus elementos, así que vamos a utilizar [nuestros conicimientos recién
+adquiridos sobre el `for`](iteration.md) para hacer una función `Sum` ("Suma"). `Sum` tomará un array de números y 
+devolverá el total.
 
-Let's use our TDD skills
+Utilicemos nuestras habilidades con TDD:
 
-## Write the test first
+## Escribe primero el test
 
-Create a new folder to work in. Create a new file called `sum_test.go` and insert the following:
+Crea una nueva carpeta en la que trabajar. Añade un fichero llamado `sum_test.go` y escribe lo siguiente:
 
 ```go
 package main
@@ -28,38 +27,36 @@ func TestSum(t *testing.T) {
 	want := 15
 
 	if got != want {
-		t.Errorf("got %d want %d given, %v", got, want, numbers)
+		t.Errorf("se obtuvo %d se esperaba %d para %v", got, want, numbers)
 	}
 }
 ```
 
-Arrays have a _fixed capacity_ which you define when you declare the variable.
-We can initialize an array in two ways:
+Los arrays tienen una _capacidad definida_ que estableces cuando declaras la variable. Podemos inicializar un array 
+de dos maneras:
 
-* \[N\]type{value1, value2, ..., valueN} e.g. `numbers := [5]int{1, 2, 3, 4, 5}`
-* \[...\]type{value1, value2, ..., valueN} e.g. `numbers := [...]int{1, 2, 3, 4, 5}`
+* \[N\]tipo{value1, value2, ..., valueN} e.g. `numbers := [5]int{1, 2, 3, 4, 5}`
+* \[...\]tipo{value1, value2, ..., valueN} e.g. `numbers := [...]int{1, 2, 3, 4, 5}`
 
-It is sometimes useful to also print the inputs to the function in the error message.
-Here, we are using the `%v` placeholder to print the "default" format, which works well for arrays.
+En ocasiiones es útil escribir la entrada a la función en el mensaje de error. Aquí estamos utilizando la marca `%v`
+para escribir en el formato por defecto, que funciona bien con arrays
 
-[Read more about the format strings](https://golang.org/pkg/fmt/)
+[Más información sobre las cadenas de texto con formato](https://golang.org/pkg/fmt/)
 
-## Try to run the test
+## Intenta ejecutar el test
 
-If you had initialized go mod with `go mod init main` you will be presented with an error
-`_testmain.go:13:2: cannot import "main"`. This is because according to common practice,
-package main will only contain integration of other packages and not unit-testable code and
-hence Go will not allow you to import a package with name `main`.
+Si hubieras inicalizado go mod con `go mod init main` habrías visto el error 
+`_testmain.go:13:2: cannot import "main"`. Ésto es porque, de acuerdo a la práctica habitual, el paquete `main` únicamente
+integra otros paquetes, no se puede importar y por tanto no se pueden hacer tests unitarios sobre él. Por eso Go no te 
+permite importar un paquete con el nombre `main`.
 
-To fix this, you can rename the main module in `go.mod` to any other name.
+Para solucionarlo, puedes cambiar el nombre del módulo principal de `go.mod` a cualquier otra cosa.
 
-Once the above error is fixed, if you run `go test` the compiler will fail with the familiar
-`./sum_test.go:10:15: undefined: Sum` error. Now we can proceed with writing the actual method
-to be tested.
+Una vez que el error esté corregido, si ejecutas `go test` la compilación fallará con el error familiar `./sum_test.go:10:15: undefined: Sum`. Ahora podemos proceder con la escritura del método a probar.
 
-## Write the minimal amount of code for the test to run and check the failing test output
+## Escribe la cantidad mínima de código para que el test se ejecuta y comprueba su salida al fallar.
 
-In `sum.go`
+Aquí tenemos `sum.go`
 
 ```go
 package main
@@ -69,11 +66,11 @@ func Sum(numbers [5]int) int {
 }
 ```
 
-Your test should now fail with _a clear error message_
+Ahora el test debería fallar con _un mensaje claro de error_
 
-`sum_test.go:13: got 0 want 15 given, [1 2 3 4 5]`
+`sum_test.go:13: se obtuvo 0 se esperaba 15 para [1 2 3 4 5]`
 
-## Write enough code to make it pass
+## Escribe el código necesario para que pase
 
 ```go
 func Sum(numbers [5]int) int {
@@ -85,13 +82,12 @@ func Sum(numbers [5]int) int {
 }
 ```
 
-To get the value out of an array at a particular index, just use `array[index]`
-syntax. In this case, we are using `for` to iterate 5 times to work through the
-array and add each item onto `sum`.
+Para obtener el valor de un array en una posición particular usamos `array[index]`.
+en este caso, estamos utilizando `for` para iterar 5 veces y recorrer el array sumando cada elemento a `sum`.
 
-## Refactor
+## Refactoriza
 
-Let's introduce [`range`](https://gobyexample.com/range) to help clean up our code
+Introduzcamos [`range`](https://gobyexample.com/range) para ayudarnos a limpiar nuestro código
 
 ```go
 func Sum(numbers [5]int) int {
@@ -103,31 +99,29 @@ func Sum(numbers [5]int) int {
 }
 ```
 
-`range` lets you iterate over an array. On each iteration, `range` returns two values - the index and the value.
-We are choosing to ignore the index value by using `_` [blank identifier](https://golang.org/doc/effective_go.html#blank).
+`range` te permite iterar sobre un array. En cada iteración, `range` devuelve dos valores: el índice y el valor.
+Elegimos ignorar el índice al utilizar el [identificador vacío](https://golang.org/doc/effective_go.html#blank) `_ `.
 
-### Arrays and their type
+### Los Arrays y su tipo
 
-An interesting property of arrays is that the size is encoded in its type. If you try
-to pass an `[4]int` into a function that expects `[5]int`, it won't compile.
-They are different types so it's just the same as trying to pass a `string` into
-a function that wants an `int`.
+Una propiedad interesante de los arrays es que el tamaño está codificado en su tipo. Si intentas pasar un `[4]int` a una
+función que espera un `[5]int`, el código no compilará. Son tipos diferentes, igual que si intentases pasar un `string` a
+una función que espera un `int`.
 
-You may be thinking it's quite cumbersome that arrays have a fixed length, and most
-of the time you probably won't be using them!
+Quizá estés pensando que es un poco incómodo que los arrays tengan una longitud fija, y que la mayor parte del tipo no los
+usarás.
 
-Go has _slices_ which do not encode the size of the collection and instead can
-have any size.
+Go tiene _slices_, que no codifican el tamaño de la coleción y pueden tener cualquier número de elementos.
 
-The next requirement will be to sum collections of varying sizes.
+El próximo requisito será poder sumar colecciones de tamaños diferentes.
 
-## Write the test first
+## Escribe primero el test
 
-We will now use the [slice type][slice] which allows us to have collections of
-any size. The syntax is very similar to arrays, you just omit the size when
-declaring them
+Utilizaremos ahora la sintaxis [tipo slice][slice], que permite tener colecciones de cualquier tamaño. La sintaxis es muy 
+similar a la de los arrays, sólo que se omite el tamaño al declararlos.
 
-`mySlice := []int{1,2,3}` rather than `myArray := [3]int{1,2,3}`
+
+`mySlice := []int{1,2,3}` en lugar de `myArray := [3]int{1,2,3}`
 
 ```go
 func TestSum(t *testing.T) {
